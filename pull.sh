@@ -8,10 +8,10 @@ if [ $# -ne 1 ]; then
 fi
 
 while IFS='' read -r image || [[ -n "$image" ]]; do
-  src=$image
-  target=lixinio/$image
-  echo "Pulling $src ..."
-  docker pull $src
-  docker tag $src $target
-  docker push $target
+  src="${image}"
+  target="${DOCKER_CI_REGISTRY}/lixinio/$image"
+  echo "Pulling "${src}" ..."
+  docker pull "${src}"
+  docker tag "${src}" "${target}"
+  docker push "${target}"
 done < "$1"
